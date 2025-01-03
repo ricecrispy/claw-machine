@@ -1,0 +1,147 @@
+/* Container for the claw machine */
+.claw-machine {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+  border: 2px solid #000;
+  margin: 50px auto;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+}
+
+/* The pole of the claw machine */
+#claw-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 6px;
+  background-color: #333;
+  height: 150px; /* Initial height */
+  transform: translateX(-50%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+  animation: clawLineAnimation 3s ease-in-out infinite; /* Added animation for claw line */
+}
+
+/* The claw body (flatter appearance) */
+#claw-body {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  width: 60px;
+  height: 30px;
+  background: linear-gradient(135deg, #bbb, #888);
+  transform-origin: center;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  animation: clawAnimation 3s ease-in-out infinite; /* Added animation here */
+}
+
+/* Animation for claw body and grabber */
+@keyframes clawAnimation {
+  0% {
+    top: 150px;
+  }
+  50% {
+    top: 280px; /* Move down to grab the ball */
+  }
+  60% {
+    top: 270px; /* Simulate grabbing the ball */
+  }
+  100% {
+    top: 150px; /* Return to the original position */
+  }
+}
+
+/* Animation for the claw line (extension effect) */
+@keyframes clawLineAnimation {
+  0% {
+    height: 150px; /* Initial height */
+  }
+  50% {
+    height: 280px; /* Extend the claw line as the claw body goes down */
+  }
+  60% {
+    height: 280px; /* Extend the claw line as the claw body goes down */
+  }
+  100% {
+    height: 150px; /* Return the claw line to its original height */
+  }
+}
+
+/* The claw grabber */
+#claw-grabber {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 70px;
+  height: 20px;
+  background: transparent;
+  border: 3px solid silver;
+  border-top: none;
+  border-radius: 0 0 20px 20px;
+  transform: translateX(-50%) rotate(180deg);
+  z-index: 10;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  animation: grabAnimation 3s ease-in-out infinite;
+}
+
+/* Animation for claw grabber (down, grab, up) */
+@keyframes grabAnimation {
+  0% {
+    top: 40px;
+  }
+  50% {
+    top: 43px;
+  }
+  100% {
+    top: 40px;
+  }
+}
+
+/* Balls that will be grabbed by the claw */
+#balls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  pointer-events: none;
+}
+
+/* Individual ball */
+.ball {
+  position: absolute; /* Make the ball position absolute so we can animate it */
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 2px;
+  background-color: red; /* Default color */
+  animation: none; /* No animation initially */
+}
+
+/* Animation for ball moving with the claw grabber */
+@keyframes ballAnimation {
+  0% {
+    transform: translateY(-30px); /* Ball starts at the bottom */
+  }
+  50% {
+    transform: translateY(-45px);
+  }
+  60% {
+    transform: translateY(-60px);
+  }
+  100% {
+    transform: translateY(-160px); /* Ball disappears (or stays at top) */
+  }
+}
